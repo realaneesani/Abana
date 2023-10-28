@@ -1,0 +1,311 @@
+{
+  "result": {
+    "totalCount": 23,
+    "items": [
+      {
+        "machineLocker": {
+          "machineID": 2,
+          "machineName": "SPL 1002",
+          "lockerNo": 0,
+          "active": true,
+          "lockerSequenceNo": 1,
+          "columnSequence": 1,
+          "size": 6,
+          "modelName": "SPLMain",
+          "id": 178
+        }
+      },
+      {
+        "machineLocker": {
+          "machineID": 2,
+          "machineName": "SPL 1002",
+          "lockerNo": 18,
+          "active": true,
+          "lockerSequenceNo": 18,
+          "columnSequence": 3,
+          "size": 3,
+          "modelName": "SPL1",
+          "id": 179
+        }
+      },
+      {
+        "machineLocker": {
+          "machineID": 2,
+          "machineName": "SPL 1002",
+          "lockerNo": 17,
+          "active": true,
+          "lockerSequenceNo": 17,
+          "columnSequence": 3,
+          "size": 2,
+          "modelName": "SPL1",
+          "id": 180
+        }
+      },
+      {
+        "machineLocker": {
+          "machineID": 2,
+          "machineName": "SPL 1002",
+          "lockerNo": 16,
+          "active": true,
+          "lockerSequenceNo": 16,
+          "columnSequence": 3,
+          "size": 2,
+          "modelName": "SPL1",
+          "id": 181
+        }
+      },
+      {
+        "machineLocker": {
+          "machineID": 2,
+          "machineName": "SPL 1002",
+          "lockerNo": 15,
+          "active": true,
+          "lockerSequenceNo": 15,
+          "columnSequence": 3,
+          "size": 2,
+          "modelName": "SPL1",
+          "id": 182
+        }
+      },
+      {
+        "machineLocker": {
+          "machineID": 2,
+          "machineName": "SPL 1002",
+          "lockerNo": 14,
+          "active": true,
+          "lockerSequenceNo": 14,
+          "columnSequence": 3,
+          "size": 2,
+          "modelName": "SPL1",
+          "id": 183
+        }
+      },
+      {
+        "machineLocker": {
+          "machineID": 2,
+          "machineName": "SPL 1002",
+          "lockerNo": 13,
+          "active": true,
+          "lockerSequenceNo": 13,
+          "columnSequence": 3,
+          "size": 2,
+          "modelName": "SPL1",
+          "id": 184
+        }
+      },
+      {
+        "machineLocker": {
+          "machineID": 2,
+          "machineName": "SPL 1002",
+          "lockerNo": 12,
+          "active": true,
+          "lockerSequenceNo": 12,
+          "columnSequence": 3,
+          "size": 2,
+          "modelName": "SPL1",
+          "id": 185
+        }
+      },
+      {
+        "machineLocker": {
+          "machineID": 2,
+          "machineName": "SPL 1002",
+          "lockerNo": 11,
+          "active": false,
+          "lockerSequenceNo": 11,
+          "columnSequence": 3,
+          "size": 4,
+          "modelName": "SPL1",
+          "id": 186
+        }
+      },
+      {
+        "machineLocker": {
+          "machineID": 2,
+          "machineName": "SPL 1002",
+          "lockerNo": 10,
+          "active": true,
+          "lockerSequenceNo": 10,
+          "columnSequence": 2,
+          "size": 3,
+          "modelName": "SPL1",
+          "id": 187
+        }
+      },
+      {
+        "machineLocker": {
+          "machineID": 2,
+          "machineName": "SPL 1002",
+          "lockerNo": 19,
+          "active": true,
+          "lockerSequenceNo": 19,
+          "columnSequence": 3,
+          "size": 3,
+          "modelName": "SPL1",
+          "id": 188
+        }
+      },
+      {
+        "machineLocker": {
+          "machineID": 2,
+          "machineName": "SPL 1002",
+          "lockerNo": 9,
+          "active": true,
+          "lockerSequenceNo": 9,
+          "columnSequence": 2,
+          "size": 3,
+          "modelName": "SPL1",
+          "id": 189
+        }
+      },
+      {
+        "machineLocker": {
+          "machineID": 2,
+          "machineName": "SPL 1002",
+          "lockerNo": 7,
+          "active": true,
+          "lockerSequenceNo": 7,
+          "columnSequence": 2,
+          "size": 2,
+          "modelName": "SPL1",
+          "id": 190
+        }
+      },
+      {
+        "machineLocker": {
+          "machineID": 2,
+          "machineName": "SPL 1002",
+          "lockerNo": 6,
+          "active": true,
+          "lockerSequenceNo": 6,
+          "columnSequence": 2,
+          "size": 2,
+          "modelName": "SPL1",
+          "id": 191
+        }
+      },
+      {
+        "machineLocker": {
+          "machineID": 2,
+          "machineName": "SPL 1002",
+          "lockerNo": 5,
+          "active": true,
+          "lockerSequenceNo": 5,
+          "columnSequence": 2,
+          "size": 2,
+          "modelName": "SPL1",
+          "id": 192
+        }
+      },
+      {
+        "machineLocker": {
+          "machineID": 2,
+          "machineName": "SPL 1002",
+          "lockerNo": 4,
+          "active": true,
+          "lockerSequenceNo": 4,
+          "columnSequence": 2,
+          "size": 2,
+          "modelName": "SPL1",
+          "id": 193
+        }
+      },
+      {
+        "machineLocker": {
+          "machineID": 2,
+          "machineName": "SPL 1002",
+          "lockerNo": 3,
+          "active": false,
+          "lockerSequenceNo": 3,
+          "columnSequence": 2,
+          "size": 2,
+          "modelName": "SPL1",
+          "id": 194
+        }
+      },
+      {
+        "machineLocker": {
+          "machineID": 2,
+          "machineName": "SPL 1002",
+          "lockerNo": 2,
+          "active": false,
+          "lockerSequenceNo": 2,
+          "columnSequence": 2,
+          "size": 2,
+          "modelName": "SPL1",
+          "id": 195
+        }
+      },
+      {
+        "machineLocker": {
+          "machineID": 2,
+          "machineName": "SPL 1002",
+          "lockerNo": 1,
+          "active": true,
+          "lockerSequenceNo": 1,
+          "columnSequence": 2,
+          "size": 4,
+          "modelName": "SPL1",
+          "id": 196
+        }
+      },
+      {
+        "machineLocker": {
+          "machineID": 2,
+          "machineName": "SPL 1002",
+          "lockerNo": 0,
+          "active": true,
+          "lockerSequenceNo": 3,
+          "columnSequence": 1,
+          "size": 6,
+          "modelName": "SPLMain",
+          "id": 197
+        }
+      },
+      {
+        "machineLocker": {
+          "machineID": 2,
+          "machineName": "SPL 1002",
+          "lockerNo": 0,
+          "active": true,
+          "lockerSequenceNo": 2,
+          "columnSequence": 1,
+          "size": 5,
+          "modelName": "SPLMain",
+          "id": 198
+        }
+      },
+      {
+        "machineLocker": {
+          "machineID": 2,
+          "machineName": "SPL 1002",
+          "lockerNo": 8,
+          "active": true,
+          "lockerSequenceNo": 8,
+          "columnSequence": 2,
+          "size": 3,
+          "modelName": "SPL1",
+          "id": 199
+        }
+      },
+      {
+        "machineLocker": {
+          "machineID": 2,
+          "machineName": "SPL 1002",
+          "lockerNo": 20,
+          "active": true,
+          "lockerSequenceNo": 20,
+          "columnSequence": 3,
+          "size": 3,
+          "modelName": "SPL1",
+          "id": 200
+        }
+      }
+    ]
+  },
+  "targetUrl": null,
+  "success": true,
+  "error": null,
+  "unAuthorizedRequest": false,
+  "__abp": true
+}
