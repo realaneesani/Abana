@@ -1,13 +1,12 @@
-package com.helium4.abana.model
-
 data class MachineLocker(
-    val active: Boolean,
-    val columnSequence: Int,
-    val id: Int,
-    val lockerNo: Int,
-    val lockerSequenceNo: Int,
     val machineID: Int,
     val machineName: String,
+    val lockerNo: Int,
+    val active: Boolean,
+    val lockerSequenceNo: Int,
+    val columnSequence: Int,
+    val size: Int,
     val modelName: String,
-    val size: Int
+    val id: Int
 )
+

@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Abana</string>
+    <string name="enter_password">Enter Password</string>
+    <string name="enter_phone_number">Enter Username</string>
 </resources>

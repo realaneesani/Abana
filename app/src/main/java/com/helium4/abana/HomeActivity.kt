@@ -1,132 +1,102 @@
 package com.helium4.abana
 
-import android.content.Context
+import MachineLocker
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.Gravity
-import android.view.View
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.setMargins
-import com.google.gson.Gson
-import com.helium4.abana.databinding.ActivityHomeBinding
-import com.helium4.abana.model.DataModel
-import com.helium4.abana.viewModel.HomeViewModel
+import com.helium4.abana.model.Item
+import com.helium4.abana.model.Result
+import org.json.JSONArray
+import org.json.JSONObject
+import java.io.IOException
+import java.io.InputStream
+
 
 import android.widget.LinearLayout.LayoutParams as LinearLayoutParams
 
 
 class HomeActivity : AppCompatActivity() {
-
-    lateinit var mModel:HomeViewModel
-    private lateinit var  binding: ActivityHomeBinding
-    private lateinit var  view :View
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+        val jsonStr = application.assets.open("data.json").bufferedReader().use {
+            it.readText()
+        }
 
-        binding = ActivityHomeBinding.inflate(layoutInflater)
-        view = binding.root
-        mModel = HomeViewModel(application)
+        // Parse the JSON data
+        val jsonObject = JSONObject(jsonStr)
+        val itemsArray = jsonObject.getJSONObject("result").getJSONArray("items")
 
-        val jsonFileName = "data.json" // Replace with your JSON file name
-        val json = parseJsonFromAssets(this, jsonFileName)
+        // Convert JSON data to a list of Item objects and sort by lockerSequenceNo
+        val items = (0 until itemsArray.length())
+            .map { itemsArray.getJSONObject(it) }
+            .map { Item(it.getJSONObject("machineLocker").toMachineLocker()) }
+            .sortedBy { it.machineLocker.lockerSequenceNo }
 
-        if (json != null) {
-            val result = json.result
-            println("Total Count: ${result.totalCount}")
-            val itemCount = result.totalCount
-            val itemsPerLayout = 10
+        val columnSequenceMap = items.groupBy { it.machineLocker.columnSequence }
 
+        for (sequence in columnSequenceMap.keys) {
+            val linearLayout = createDynamicLinearLayout(this)
+            // Variables to count the number of image views and text views
+            var numImageViews = 0
+            var numTextViews = 0
 
-            for (i in 0 until itemCount step itemsPerLayout) {
-                val linearLayout = createDynamicLinearLayout()
-                for (j in i until i + itemsPerLayout) {
-                    if (j >= itemCount) {
-                        break
-                    }
-                    val item = json.result.items[j]
-                    val machineName = json.result.items[j].machineLocker.id
-                    val size = json.result.items[j].machineLocker.size
-                    val textView = createDynamicTextView(machineName,size)
+            for (item in columnSequenceMap[sequence]!!) {
+                if (item.machineLocker.lockerSequenceNo == 2 && item.machineLocker.columnSequence == 1) {
+                    val imageView = createDynamicImageView(0,columnSequenceMap[sequence]!!.size,this)
 
-                    textView.setOnClickListener {
-
-                        Toast.makeText(application,"You selected Locker $machineName",Toast.LENGTH_SHORT).show()
-
-                    }
+                    linearLayout.addView(imageView)
+                  //  numImageViews++
+                } else {
+                    val textView = createDynamicTextView(item.machineLocker.lockerNo,item.machineLocker.size,this,columnSequenceMap[sequence]!!.size,item.machineLocker.columnSequence.toString())
                     linearLayout.addView(textView)
+                 //   numTextViews++
                 }
-                findViewById<LinearLayout>(R.id.layout1).addView(linearLayout)
             }
-
-
-
-//            for (i in 0 until result.totalCount step itemsPerLayout) {
-//                val linearLayout = LinearLayout(this)
-//                linearLayout.orientation = LinearLayout.VERTICAL
-//
-//                for (j in i until (i + itemsPerLayout).coerceAtMost(result.totalCount)) {
-//                    val jsonObject = jsonArray.getJSONObject(j)
-//                    val item = jsonObject.getString("item")
-//                    val textView = TextView(this)
-//                    textView.text = item
-//                    linearLayout.addView(textView)
-//                }
-//
-//                parentLayout.addView(linearLayout)
-//            }
-
-//            val columns = ((result.totalCount + 9) / 10 * 10)/10
-//
-//            Log.wtf("dsfds",columns.toString())
-//            for (i in 1..columns) {
-//                val linearLayout = LinearLayout(this)
-//                linearLayout.layoutParams = LayoutParams(75, LayoutParams.WRAP_CONTENT)
-//
-//                val textView = TextView(this)
-//                textView.text = "Row $i"
-//                textView.layoutParams = LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT)
-//
-//                linearLayout.addView(textView)
-//
-//                findViewById<LinearLayout>(R.id.layout1).addView(linearLayout)
-//                Log.wtf("dsfds","Added $i")
-//
-//            }
-
-            for (item in result.items) {
-
-
-                Log.wtf("iafwuqiiuegff","Machine ID: ${item.machineLocker.machineID}," +
-                        " Machine Name: ${item.machineLocker.machineName}, " +
-                        "Locker No: ${item.machineLocker.lockerNo}")
-
-
-                // Add more properties as needed
-            }
-        } else {
-            println("Failed to parse JSON")
+            // Add weight sums for LinearLayout to distribute space evenly
+            linearLayout.weightSum = numImageViews.toFloat() + numTextViews.toFloat()
+            findViewById<LinearLayout>(R.id.layout1).addView(linearLayout)
         }
     }
-
-    private fun parseJsonFromAssets(context: Context, fileName: String): DataModel? {
-        try {
-            val inputStream = context.assets.open(fileName)
-            val json = inputStream.bufferedReader().use { it.readText() }
-            val gson = Gson()
-            return gson.fromJson(json, DataModel::class.java)
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-        return null
+    private fun JSONObject.toMachineLocker(): MachineLocker {
+        return MachineLocker(
+            getInt("machineID"),
+            getString("machineName"),
+            getInt("lockerNo"),
+            getBoolean("active"),
+            getInt("lockerSequenceNo"),
+            getInt("columnSequence"),
+            getInt("size"),
+            getString("modelName"),
+            getInt("id")
+        )
     }
 
-    private fun createDynamicLinearLayout(): LinearLayout {
-        val linearLayout = LinearLayout(this)
+    private fun createDynamicImageView(lockerNo: Int, size: Int, homeActivity: HomeActivity): ImageView {
+
+        val imageView = ImageView(this)
+        imageView.setImageResource(R.drawable.sd)
+        imageView.setPadding(18,18,18,18)
+        imageView.scaleType = ImageView.ScaleType.CENTER_CROP
+
+        val imageParams = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        )
+        imageParams.weight = 1.0f / size
+        imageView.layoutParams = imageParams
+        imageView.layoutParams = imageParams
+        return imageView
+    }
+
+    private fun createDynamicLinearLayout(homeActivity: HomeActivity): LinearLayout {
+        val linearLayout = LinearLayout(homeActivity)
         linearLayout.layoutParams = LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.MATCH_PARENT,
             LinearLayout.LayoutParams.WRAP_CONTENT
@@ -136,18 +106,34 @@ class HomeActivity : AppCompatActivity() {
         return linearLayout
     }
 
-    private fun createDynamicTextView(text: Int, size: Int): TextView {
-        val width = 220
-        val textView = TextView(this)
+    private fun createDynamicTextView(
+        text: Int,
+        size: Int,
+        homeActivity: HomeActivity,
+        size1: Int,
+        toString: String
+    ): TextView {
+        val width = 250
+        val textView = TextView(homeActivity)
         textView.setPadding(18,18,18,18)
         textView.gravity = Gravity.CENTER
         textView.setTextColor(Color.WHITE)
 
 
 
+
+
         textView.setBackgroundResource(R.color.green)
 
-        textView.text = text.toString()
+        textView.text = if (text ==0){
+            ""
+        }else{
+
+            text.toString() }
+
+        textView.setOnClickListener {
+            Toast.makeText(homeActivity,"You have selected Locker No:$text from Sequence $toString",Toast.LENGTH_SHORT).show()
+        }
         when (size) {
             6 -> {
 
@@ -156,6 +142,7 @@ class HomeActivity : AppCompatActivity() {
                     300 // Height
                 )
                 layoutParams.setMargins(8)
+                layoutParams.weight = 1.0f / size1
 
                 textView.layoutParams = layoutParams
 
@@ -164,9 +151,11 @@ class HomeActivity : AppCompatActivity() {
 
                 val layoutParams = LinearLayoutParams(
                     width, // Width
-                    250 // Height
+                    350 // Height
                 )
                 layoutParams.setMargins(8)
+                layoutParams.weight = 1.0f / size1
+
                 textView.layoutParams = layoutParams
 
             }
@@ -174,9 +163,11 @@ class HomeActivity : AppCompatActivity() {
 
                 val layoutParams = LinearLayoutParams(
                     width, // Width
-                    220 // Height
+                    280 // Height
                 )
                 layoutParams.setMargins(8)
+                layoutParams.weight = 1.0f / size1
+
                 textView.layoutParams = layoutParams
 
             }
@@ -184,9 +175,11 @@ class HomeActivity : AppCompatActivity() {
 
                 val layoutParams = LinearLayoutParams(
                     width, // Width
-                    150 // Height
+                    180 // Height
                 )
                 layoutParams.setMargins(8)
+                layoutParams.weight = 1.0f / size1
+
                 textView.layoutParams = layoutParams
 
 
@@ -195,19 +188,23 @@ class HomeActivity : AppCompatActivity() {
 
                 val layoutParams = LinearLayoutParams(
                     width, // Width
-                    100 // Height
+                    95 // Height
                 )
                 layoutParams.setMargins(8)
+                layoutParams.weight = 1.0f / size1
+
                 textView.layoutParams = layoutParams
             }
 
-           1 -> {
+            1 -> {
 
                 val layoutParams = LinearLayoutParams(
                     width, // Width
                     80 // Height
                 )
                 layoutParams.setMargins(8)
+                layoutParams.weight = 1.0f / size1
+
                 textView.layoutParams = layoutParams
             }
             else -> {
@@ -216,7 +213,10 @@ class HomeActivity : AppCompatActivity() {
                     width, // Width
                     LinearLayoutParams.WRAP_CONTENT // Height
                 )
+                layoutParams.weight = 1.0f / size1
+
                 layoutParams.setMargins(8)
+                textView.layoutParams = layoutParams
 
             }
         }
@@ -224,4 +224,6 @@ class HomeActivity : AppCompatActivity() {
 
         return textView
     }
+
+
 }

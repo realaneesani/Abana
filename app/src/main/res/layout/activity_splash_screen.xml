@@ -6,6 +6,28 @@
     android:layout_height="match_parent"
     tools:context=".SplashScreen">
 
+    <app.rive.runtime.kotlin.RiveAnimationView
+        android:id="@+id/bg_anim"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:riveAlignment="CENTER"
+        app:riveFit="FILL"
+        app:riveResource="@raw/shapes">
+    </app.rive.runtime.kotlin.RiveAnimationView>
+
+    <ImageView
+
+        android:layout_width="wrap_content"
+        android:layout_height="52dp"
+        android:src="@drawable/blur"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/bg_anim"
+        app:layout_constraintVertical_bias="0.474" />
+
+
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
@@ -15,25 +37,50 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.473" />
+        app:layout_constraintVertical_bias="0.475" />
 
+<!--    <com.google.android.material.progressindicator.LinearProgressIndicator-->
+<!--        android:id="@+id/progress_circular"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="40dp"-->
+<!--        android:layout_marginEnd="40dp"-->
+<!--        android:indeterminate="true"-->
+<!--        app:indeterminateAnimationType="contiguous"-->
+<!--        app:indicatorColor="@array/progress_colors"-->
+<!--        app:indicatorDirectionLinear="startToEnd"-->
+<!--        app:indicatorSize="50dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="1.0"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/imageView"-->
+<!--        app:layout_constraintVertical_bias="0.912" />-->
 
-    <com.google.android.material.progressindicator.LinearProgressIndicator
-        android:id="@+id/progress_circular"
-        android:layout_width="match_parent"
-        android:layout_marginEnd="40dp"
-        android:layout_marginStart="40dp"
+    <TextView
+        android:id="@+id/getStarted"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:drawableEnd="@drawable/baseline_arrow_forward_ios_24"
+        android:gravity="center"
         android:indeterminate="true"
+        android:text="Get Started"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:padding="12dp"
+        android:shadowRadius="20"
+        android:shadowDx="16"
+        android:shadowDy="8"
         app:indicatorDirectionLinear="startToEnd"
-        app:indeterminateAnimationType="contiguous"
-        app:indicatorColor="@array/progress_colors"
         app:indicatorSize="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:layout_constraintVertical_bias="0.09" />
+        app:layout_constraintVertical_bias="0.812" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

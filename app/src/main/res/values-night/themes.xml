@@ -2,6 +2,9 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.Abana" parent="Theme.Material3.Light.NoActionBar">
         <item name="android:fontFamily">@font/comforta</item>
+        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:windowLightStatusBar">true</item>
+
         <!-- Customize your dark theme here. -->
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
     </style>
